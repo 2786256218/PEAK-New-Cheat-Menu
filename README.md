@@ -144,12 +144,10 @@ bin\Debug\net472\PEAK.Cheat.dll
 - `classname`: `Loader`
 - `methodname`: `Load`
 
-也就是说，如果注入器支持“反射调用程序集中的静态方法”这一模式，应优先使用：
+完整注入命令可写为：
 
-```text
-Namespace=Loading
-ClassName=Loader
-MethodName=Load
+```powershell
+smi.exe injector -p "PEAK.exe" -a ".\bin\Debug\net472\PEAK.Cheat.dll" -n "Loading" -c "Loader" -m "Load"
 ```
 
 #### 3. 打开菜单
@@ -169,31 +167,25 @@ Config/Wallhack.json
 
 ### SMI 注入器命令
 
-#### 源码实际入口
+当前仓库源码唯一需要使用的入口就是：
 
-根据当前仓库源码，SMI 一类支持“命名空间 + 类名 + 方法名”调用方式的注入器，推荐填写如下参数：
+- `namespace`: `Loading`
+- `classname`: `Loader`
+- `methodname`: `Load`
 
-```text
-namespace=Loading
-classname=Loader
-methodname=Load
+完整示例命令：
+
+```powershell
+smi.exe injector -p "PEAK.exe" -a ".\bin\Debug\net472\PEAK.Cheat.dll" -n "Loading" -c "Loader" -m "Load"
 ```
 
-#### 你指定的自定义入口
+参数说明：
 
-如果你需要在 README 中保留你指定的 SMI 参数模板，也可以写成下面这样：
-
-```text
-namespace=Cheating
-classname=Cheater
-methodname=Cheat
-```
-
-但需要注意：
-
-- 当前仓库源码中并不存在 `Cheating.Cheater.Cheat`
-- 当前源码真正可用的是 `Loading.Loader.Load()`
-- 如果你坚持使用 `Cheating / Cheater / Cheat` 这组参数，需要自行在代码中增加桥接入口，或者在编译前重命名导出类型与方法
+- `-p`: 目标进程名
+- `-a`: 要注入的程序集路径
+- `-n`: 命名空间
+- `-c`: 类名
+- `-m`: 方法名
 
 ### 功能说明
 
@@ -433,12 +425,10 @@ The actual runtime entry in the current source is:
 - `classname`: `Loader`
 - `methodname`: `Load`
 
-For injectors that invoke a static method by namespace/class/method, use:
+The full injection command can be written as:
 
-```text
-Namespace=Loading
-ClassName=Loader
-MethodName=Load
+```powershell
+smi.exe injector -p "PEAK.exe" -a ".\bin\Debug\net472\PEAK.Cheat.dll" -n "Loading" -c "Loader" -m "Load"
 ```
 
 #### 3. Open the menu
@@ -458,31 +448,25 @@ The file supports save, reload, reset, and hot reloading while the game is runni
 
 ### SMI Injector Command
 
-#### Actual source entry
+The only entry you need in the current source is:
 
-Based on the current code in this repository, the correct SMI-style parameters are:
+- `namespace`: `Loading`
+- `classname`: `Loader`
+- `methodname`: `Load`
 
-```text
-namespace=Loading
-classname=Loader
-methodname=Load
+Full example command:
+
+```powershell
+smi.exe injector -p "PEAK.exe" -a ".\bin\Debug\net472\PEAK.Cheat.dll" -n "Loading" -c "Loader" -m "Load"
 ```
 
-#### Your requested custom preset
+Parameter summary:
 
-If you want to keep your requested preset in the documentation, it can be listed as:
-
-```text
-namespace=Cheating
-classname=Cheater
-methodname=Cheat
-```
-
-Important note:
-
-- The current repository does not define `Cheating.Cheater.Cheat`
-- The usable source entry is `Loading.Loader.Load()`
-- If you want to use `Cheating / Cheater / Cheat`, you need to add a bridge entry or rename the exported type and method before building
+- `-p`: target process name
+- `-a`: assembly path
+- `-n`: namespace
+- `-c`: class name
+- `-m`: method name
 
 ### Feature Notes
 
